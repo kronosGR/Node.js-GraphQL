@@ -5,8 +5,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const multer = require('multer');
 
-const feedRoutes = require('./routes/feed');
-const authRoutes = require('./routes/auth');
 
 const app = express();
 
@@ -62,10 +60,7 @@ app.use((error, req, res, next) => {
 mongoose
   .connect('mongodb+srv://kronos:yxhI2XOMH63PzHrm@cluster0.hrnez.mongodb.net/messages')
   .then((result) => {
-    const server = app.listen(8080);
-    const io = require('./socket').init(server);
-    io.on('connection', socket => {
-      console.log('Client connected')
-    })
+    app.listen(8080);
+    
   })
   .catch((err) => console.log(err));
