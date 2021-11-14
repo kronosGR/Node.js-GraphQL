@@ -249,4 +249,22 @@ module.exports = {
     await user.save();
     return true;
   },
+  user: async function (args, req) {
+    if (!post) {
+      const error = new Error('No post found!');
+      error.code = 404;
+      throw error;
+    }
+
+    const user = await User.findById(req.userId);
+    if (!user) {
+      const error = new Error('No post found!');
+      error.code = 404;
+      throw error;
+    }
+    return {
+      ...user._doc,
+      _id: user._id.toString(),
+    };
+  },
 };
